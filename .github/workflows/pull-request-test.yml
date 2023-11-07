@@ -1,0 +1,24 @@
+name: "Pull Request"
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  validate:
+    uses: ./.github/workflows/_validate-npm.yml
+  publish:
+    uses: ./.github/workflows/_publish-docker.yml
+    needs: [ validate ]
+    secrets: inherit
+    with:
+      DOCKERHUB_REPO: aeternitybot/aepp-test
+  deploy:
+    uses: ./.github/workflows/_deploy-gitops.yml
+    needs: [publish]
+    secrets: inherit
+    with:
+      DEPLOY_ENV: dev
+      DEPLOY_APP: aepp-test
+      DEPLOY_VERSION: "pr-${{ github.event.number }}"
+      DEPLOY_HOST_PREFIX: "pr-${{ github.event.number }}"

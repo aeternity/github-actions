@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      DOCKERHUB_REPO:
+        description: 'Dockerhub repository'
+        type: string
+        default: "${{ github.repository }}"
     secrets:
       DOCKERHUB_USER:
         required: true
@@ -16,7 +21,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ${{ github.repository }}
+            ${{ inputs.DOCKERHUB_REPO }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
