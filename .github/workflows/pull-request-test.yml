@@ -22,3 +22,19 @@ jobs:
       DEPLOY_APP: aepp-test
       DEPLOY_VERSION: "pr-${{ github.event.number }}"
       DEPLOY_HOST_PREFIX: "pr-${{ github.event.number }}"
+  wait:
+    runs-on: ubuntu-20.04
+    name: sleep
+    steps:
+      - name: Sleep for 10 seconds
+        run: sleep 10s
+        shell: bash
+  rollback:
+    uses: ./.github/workflows/_rollback-gitops.yml
+    needs: [wait]
+    secrets: inherit
+    with:
+      DEPLOY_ENV: dev
+      DEPLOY_APP: aepp-test
+      DEPLOY_VERSION: "pr-${{ github.event.number }}"
+      DEPLOY_HOST_PREFIX: "pr-${{ github.event.number }}"
