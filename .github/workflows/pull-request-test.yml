@@ -25,6 +25,7 @@ jobs:
   wait:
     runs-on: ubuntu-20.04
     name: sleep
+    needs: [deploy]
     steps:
       - name: Sleep for 10 seconds
         run: sleep 10s
