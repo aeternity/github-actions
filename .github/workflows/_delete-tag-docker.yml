@@ -29,11 +29,8 @@ jobs:
           USER: ${{ secrets.DOCKERHUB_USER }}
           PASS: ${{ secrets.DOCKERHUB_PASS }}
       - name: Delete tag
-        run: >
-          curl -i -X DELETE
-            -H "Accept: application/json"
-            -H "Authorization: JWT $HUB_TOKEN"
-            https://hub.docker.com/v2/repositories/$REPO/tags/$TAG
+        run: |
+          curl -i -X DELETE -H "Authorization: JWT $HUB_TOKEN" https://hub.docker.com/v2/repositories/$REPO/tags/$TAG
         env:
           HUB_TOKEN: ${{ steps.auth.outputs.token }}
           REPO: ${{ inputs.DOCKERHUB_REPO }}
