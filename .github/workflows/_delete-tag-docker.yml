@@ -17,7 +17,7 @@ on:
 
 jobs:
   delete_tag:
-    name: "Delete tag from Dockehub"
+    name: "Delete docker tag"
     runs-on: ubuntu-20.04
     steps:
       - name: Authenticate
