@@ -18,7 +18,7 @@ on:
         type: string
         required: false
       DEPLOY_HOST_PREFIX:
-        description: 'Deployment hostname prefix. Usually $VERSION-, default $VERSION-'
+        description: 'Deployment hostname prefix. Usually $VERSION-'
         type: string
         required: false
       DEPLOY_HOST:
