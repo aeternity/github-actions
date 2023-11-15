@@ -1,6 +1,15 @@
 on:
   workflow_call:
     inputs:
+      FILE:
+        type: string
+        default: Dockerfile
+      CONTEXT:
+        type: string
+        default: .
+      BUILD_ARGS:
+        type: string
+        default: ""
       DOCKERHUB_REPO:
         description: 'Dockerhub repository'
         type: string
@@ -40,6 +49,9 @@ jobs:
         uses: docker/build-push-action@v4
         if: ${{ steps.meta.outputs.tags }}
         with:
+          context: $${{ inputs.CONTEXT }}
+          file: $${{ inputs.FILE }}
+          build-args: $${{ inputs.BUILD_ARGS }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
