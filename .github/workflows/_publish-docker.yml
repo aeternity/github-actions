@@ -49,9 +49,9 @@ jobs:
         uses: docker/build-push-action@v4
         if: ${{ steps.meta.outputs.tags }}
         with:
-          context: $${{ inputs.CONTEXT }}
-          file: $${{ inputs.FILE }}
-          build-args: $${{ inputs.BUILD_ARGS }}
+          context: ${{ inputs.CONTEXT }}
+          file: ${{ inputs.FILE }}
+          build-args: ${{ inputs.BUILD_ARGS }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
