@@ -3,7 +3,7 @@ on:
     inputs:
       FILE:
         type: string
-        default: Dockerfile
+        default: ./Dockerfile
       CONTEXT:
         type: string
         default: .
