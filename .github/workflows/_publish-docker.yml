@@ -3,10 +3,10 @@ on:
     inputs:
       FILE:
         type: string
-        default: ./Dockerfile
+        default: ""
       CONTEXT:
         type: string
-        default: .
+        default: ""
       BUILD_ARGS:
         type: string
         default: ""
