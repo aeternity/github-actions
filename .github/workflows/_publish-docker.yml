@@ -14,10 +14,6 @@ on:
         description: 'Dockerhub repository'
         type: string
         default: "${{ github.repository }}"
-      SEMVER_PREFIX:
-        description: 'Docker metadata action semver pattern prefix'
-        type: string
-        default: "v"
     secrets:
       DOCKERHUB_USER:
         required: true
@@ -37,8 +33,9 @@ jobs:
             ${{ inputs.DOCKERHUB_REPO }}
           tags: |
             type=ref,event=branch
+            type=ref,event=tag
             type=ref,event=pr
-            type=semver,pattern=${{ inputs.SEMVER_PREFIX }}{{version}}
+            type=semver,pattern=v{{version}}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
