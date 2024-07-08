@@ -57,5 +57,5 @@ jobs:
     needs: [ wait ]
     secrets: inherit
     with:
-      REPOSITORY: aeternitybot/aepp-test
+      REPOSITORY: aeternity/aepp-test
       TAG: "pr-${{ github.event.number }}"
