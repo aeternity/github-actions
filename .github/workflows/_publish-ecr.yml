@@ -1,0 +1,60 @@
+on:
+  workflow_call:
+    inputs:
+      FILE:
+        type: string
+        default: ""
+      CONTEXT:
+        type: string
+        default: ""
+      BUILD_ARGS:
+        type: string
+        default: ""
+      REPOSITORY:
+        description: 'Image repository'
+        type: string
+        default: "${{ github.repository }}"
+
+jobs:
+  dockerhub:
+    name: "Publish to ECR"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ${{ steps.ecr-login.outputs.registry }}/${{ inputs.REPOSITORY }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=semver,pattern=v{{version}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - uses: actions/checkout@v2
+        if: ${{ inputs.CONTEXT }}
+        with:
+          fetch-depth: 0
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v4
+        if: ${{ steps.meta.outputs.tags }}
+        with:
+          context: ${{ inputs.CONTEXT }}
+          file: ${{ inputs.FILE }}
+          build-args: ${{ inputs.BUILD_ARGS }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
