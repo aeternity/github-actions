@@ -12,9 +12,9 @@ on:
 
 jobs:
   delete_tag:
-    name: "Delete Dockerhub tag"
+    name: "Delete ECR tag"
     runs-on: ubuntu-20.04
-    container: amazon/aws-cli:2.17.9
+    # container: amazon/aws-cli:2.17.9
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
