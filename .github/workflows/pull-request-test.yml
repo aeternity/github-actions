@@ -18,7 +18,7 @@ jobs:
     needs: [ validate ]
     secrets: inherit
     with:
-      DOCKERHUB_REPO: aeternity/aepp-test
+      REPOSITORY: aeternity/aepp-test
   deploy:
     uses: ./.github/workflows/_deploy-gitops.yml
     needs: [publish]
