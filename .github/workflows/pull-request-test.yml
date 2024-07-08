@@ -17,6 +17,8 @@ jobs:
     uses: ./.github/workflows/_publish-ecr.yml
     needs: [ validate ]
     secrets: inherit
+    with:
+      DOCKERHUB_REPO: aeternity/aepp-test
   deploy:
     uses: ./.github/workflows/_deploy-gitops.yml
     needs: [publish]
