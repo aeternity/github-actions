@@ -4,7 +4,7 @@ on:
       REPOSITORY:
         description: 'Image repository'
         type: string
-        default: "${{ github.repository }}"
+        default: "${{ github.event.repository.name }}"
       TAG:
         description: 'Docker image tag'
         type: string
