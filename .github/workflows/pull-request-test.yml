@@ -13,6 +13,10 @@ jobs:
     secrets: inherit
     with:
       DOCKERHUB_REPO: aeternitybot/aepp-test
+  publish-ecr:
+    uses: ./.github/workflows/_publish-ecr.yml
+    needs: [ validate ]
+    secrets: inherit
   deploy:
     uses: ./.github/workflows/_deploy-gitops.yml
     needs: [publish]
