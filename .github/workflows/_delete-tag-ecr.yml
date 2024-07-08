@@ -32,3 +32,6 @@ jobs:
       - name: Delete tag
         run: |
           aws ecr batch-delete-image --repository-name $REPOSITORY --image-ids imageTag=$TAG
+        env:
+          REPOSITORY: ${{ inputs.REPOSITORY }}
+          TAG: ${{ inputs.TAG }}
