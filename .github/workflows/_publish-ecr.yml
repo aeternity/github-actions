@@ -38,7 +38,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ${{ steps.ecr-login.outputs.registry }}/${{ inputs.REPOSITORY }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ inputs.REPOSITORY }}
           tags: |
             type=ref,event=branch
             type=ref,event=tag
