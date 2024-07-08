@@ -52,3 +52,10 @@ jobs:
     with:
       DOCKERHUB_REPO: aeternitybot/aepp-test
       DOCKERHUB_TAG: "pr-${{ github.event.number }}"
+  delete-tag-ecr:
+    uses: ./.github/workflows/_delete-tag-ecr.yml
+    needs: [ wait ]
+    secrets: inherit
+    with:
+      REPOSITORY: aeternitybot/aepp-test
+      TAG: "pr-${{ github.event.number }}"
