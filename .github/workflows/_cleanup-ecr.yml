@@ -31,7 +31,8 @@ jobs:
           UNTAGGED_IMAGES=$(jq -r 'map(select(has("imageTags") | not))' <<< $IMAGES)
           IMAGE_DIGESTS=$(jq -r '[.[] | "imageDigest=\(.imageDigest)"] | join(" ")' <<< $UNTAGGED_IMAGES)
 
-          aws ecr-public batch-delete-image --repository-name $REPOSITORY --image-ids $IMAGE_DIGESTS
+          if [ -n "$IMAGE_DIGESTS" ]; then
+            aws ecr-public batch-delete-image --repository-name $REPOSITORY --image-ids $IMAGE_DIGESTS
+          fi
         env:
           REPOSITORY: ${{ inputs.REPOSITORY }}
-
