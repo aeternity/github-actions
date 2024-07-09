@@ -61,7 +61,7 @@ jobs:
       TAG: "pr-${{ github.event.number }}"
   cleanup-ecr:
     uses: ./.github/workflows/_cleanup-ecr.yml
-    needs: [ wait ]
+    needs: [ wait, delete-tag-ecr ]
     secrets: inherit
     with:
       REPOSITORY: aepp-test
