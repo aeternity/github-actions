@@ -17,8 +17,6 @@ jobs:
     uses: ./.github/workflows/_publish-ecr.yml
     needs: [ validate ]
     secrets: inherit
-    with:
-      REPOSITORY: aeternity/aepp-test
   deploy:
     uses: ./.github/workflows/_deploy-gitops.yml
     needs: [publish]
@@ -57,11 +55,8 @@ jobs:
     needs: [ wait ]
     secrets: inherit
     with:
-      REPOSITORY: aepp-test
       TAG: "pr-${{ github.event.number }}"
   cleanup-ecr:
     uses: ./.github/workflows/_cleanup-ecr.yml
     needs: [ wait, delete-tag-ecr ]
     secrets: inherit
-    with:
-      REPOSITORY: aepp-test
