@@ -27,7 +27,7 @@ jobs:
       DEPLOY_VERSION: "pr-${{ github.event.number }}"
       DEPLOY_SUBDOMAIN: "pr-${{ github.event.number }}-test"
   wait:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: sleep
     needs: [deploy, publish-ecr]
     steps:
