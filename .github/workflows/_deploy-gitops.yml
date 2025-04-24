@@ -35,7 +35,7 @@ concurrency: "${{ github.workflow }}-${{ inputs.DEPLOY_ENV }}"
 jobs:
   deploy:
     name: "Deploy to Gitops"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     environment:
       name: ${{ inputs.DEPLOY_ENV }}
       url: "https://${{ inputs.DEPLOY_SUBDOMAIN || inputs.DEPLOY_APP }}.${{ inputs.DEPLOY_ENV }}.${{ inputs.DEPLOY_HOST }}"
